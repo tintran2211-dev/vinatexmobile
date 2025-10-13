@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "850742227717",
+    "project_id": "vinatext-test",
+    "storage_bucket": "vinatext-test.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850742227717:android:2e496c8a17f6eed5ccfd6c",
+        "android_client_info": {
+          "package_name": "com.example.vinatexmobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzel_uQiJJMyZ1ksapvF3J9WaSGsaFSpQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
