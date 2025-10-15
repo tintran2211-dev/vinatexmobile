@@ -1,51 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:vinatexmobile/core/constants/app_fonts.dart';
+import 'package:vinatexmobile/core/constants/app_colors.dart';
+import 'package:vinatexmobile/core/constants/app_texts.dart';
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
+
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  bool _rememberMe = false;
+  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 26, vertical: 20),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      // Vùng đăng nhập rộng hơn
+      margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 32),
+      padding: const EdgeInsets.all(16),
       decoration: ShapeDecoration(
-        color: Colors.black.withOpacity(0.5),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        color: AppColors.BACKGROUND.withValues(alpha: 0.5),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'ĐĂNG NHẬP',
+            AppTexts.LOGIN_TITLE,
             style: TextStyle(
-              color: Colors.white,
+              color: AppColors.WHITE,
               fontSize: 24,
-              fontFamily: 'Roboto',
+              fontFamily: AppFonts.ROBOTO,
               fontWeight: FontWeight.w700,
               height: 1.30,
             ),
           ),
           SizedBox(height: 8),
           Text(
-            'Vui lòng đăng nhập vào tài khoản của bạn.',
+            AppTexts.LOGIN_HINT,
             style: TextStyle(
-              color: Colors.white,
+              color: AppColors.WHITE,
               fontSize: 13,
-              fontFamily: 'Roboto',
+              fontFamily: AppFonts.ROBOTO,
               fontWeight: FontWeight.w400,
               height: 1.30,
             ),
           ),
           SizedBox(height: 16),
           Container(
-            width: 320,
-            height: 4,
+            width: double.infinity,
+            height: 1,
             decoration: ShapeDecoration(
-              color: const Color(0xFF0E4374),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
+              color: AppColors.WHITE,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(2),
+              ),
             ),
           ),
           SizedBox(height: 16),
@@ -55,11 +67,11 @@ class LoginForm extends StatelessWidget {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Tài khoản ',
+                    text: AppTexts.USERNAME_LABEL,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: AppColors.WHITE,
                       fontSize: 12,
-                      fontFamily: 'Roboto',
+                      fontFamily: AppFonts.ROBOTO,
                       fontWeight: FontWeight.w500,
                       height: 1.50,
                     ),
@@ -67,9 +79,9 @@ class LoginForm extends StatelessWidget {
                   TextSpan(
                     text: '*',
                     style: TextStyle(
-                      color: const Color(0xFFFF0000),
+                      color: AppColors.ERROR,
                       fontSize: 12,
-                      fontFamily: 'Roboto',
+                      fontFamily: AppFonts.ROBOTO,
                       fontWeight: FontWeight.w500,
                       height: 1.50,
                     ),
@@ -82,36 +94,30 @@ class LoginForm extends StatelessWidget {
           TextField(
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.white,
+              fillColor: AppColors.WHITE,
               contentPadding: const EdgeInsets.all(10),
-              hintText: 'Nhập tài khoản',
+              //hintText: 'Nhập tài khoản',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(
-                  color: const Color(0xFFE5E7EB),
+                  color: AppColors.INPUT_LOGIN,
                   width: 1,
                 ),
               ),
             ),
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: AppColors.BACKGROUND),
           ),
           SizedBox(height: 4),
           // Hiển thị lỗi tài khoản
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Row(
-              children: [
-                Icon(Icons.error, color: Colors.red, size: 16),
-                SizedBox(width: 4),
-                Text(
-                  'Tên tài khoản không đúng',
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
+          Row(
+            children: [
+              Icon(Icons.error, color: AppColors.ERROR, size: 16),
+              SizedBox(width: 4),
+              Text(
+                AppTexts.USERNAME_ERROR,
+                style: TextStyle(color: AppColors.ERROR, fontSize: 12),
+              ),
+            ],
           ),
           SizedBox(height: 16),
           Align(
@@ -120,11 +126,11 @@ class LoginForm extends StatelessWidget {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Mật khẩu ',
+                    text: AppTexts.PASSWORD_LABEL,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 12,
-                      fontFamily: 'SF Pro Display',
+                      fontFamily: AppFonts.SF_PRO_DISPLAY,
                       fontWeight: FontWeight.w500,
                       height: 1.50,
                     ),
@@ -132,9 +138,9 @@ class LoginForm extends StatelessWidget {
                   TextSpan(
                     text: '*',
                     style: TextStyle(
-                      color: const Color(0xFFFF0000),
+                      color: AppColors.ERROR,
                       fontSize: 12,
-                      fontFamily: 'SF Pro Display',
+                      fontFamily: AppFonts.SF_PRO_DISPLAY,
                       fontWeight: FontWeight.w500,
                       height: 1.50,
                     ),
@@ -145,103 +151,134 @@ class LoginForm extends StatelessWidget {
           ),
           SizedBox(height: 4),
           TextField(
-            obscureText: true,
+            obscureText: _obscurePassword,
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.white,
+              fillColor: AppColors.WHITE,
               contentPadding: const EdgeInsets.all(10),
-              hintText: 'Nhập mật khẩu',
+              //hintText: 'Nhập mật khẩu',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(
-                  color: const Color(0xFFE5E7EB),
+                  color: AppColors.INPUT_LOGIN,
                   width: 1,
                 ),
               ),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                  color: AppColors.ICON_VISIBILITY_PASSWORD,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _obscurePassword = !_obscurePassword;
+                  });
+                },
+              ),
             ),
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: AppColors.BLACK),
           ),
           SizedBox(height: 4),
           // Hiển thị lỗi mật khẩu
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Row(
-              children: [
-                Icon(Icons.error, color: Colors.red, size: 16),
-                SizedBox(width: 4),
-                Text(
-                  'Mật khẩu không đúng',
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
+          Row(
+            children: [
+              Icon(Icons.error, color: AppColors.RED, size: 16),
+              SizedBox(width: 4),
+              Text(
+                AppTexts.PASSWORD_ERROR,
+                style: TextStyle(color: AppColors.RED, fontSize: 12),
+              ),
+            ],
           ),
           SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 children: [
-                  Container(
-                    width: 20,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: const Color(0xFFD2D6DB), width: 1.5),
+                  Checkbox(
+                    value: _rememberMe,
+                    onChanged: (value) {
+                      setState(() {
+                        _rememberMe = value ?? false;
+                      });
+                    },
+                    activeColor: AppColors.WHITE,
+                    checkColor: AppColors.PRIMARY,
+                    side: BorderSide(
+                      color: AppColors.INPUT_BORDER,
+                      width: 1.5,
+                    ),
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4),
                     ),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    visualDensity: VisualDensity.compact,
                   ),
-                  SizedBox(width: 8),
+                  SizedBox(width: 4),
                   Text(
-                    'Ghi nhớ tài khoản',
+                    AppTexts.REMEMBER_ME,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: AppColors.WHITE,
                       fontSize: 12,
-                      fontFamily: 'Roboto',
+                      fontFamily: AppFonts.ROBOTO,
                       fontWeight: FontWeight.w500,
                       height: 1.50,
                     ),
                   ),
                 ],
               ),
-              Row(
-                children: [
-                  Text(
-                    'Quên mật khẩu',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.underline,
-                      height: 1.50,
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed('/forgot-password');
+                },
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 2,
+                      ), // 👈 khoảng cách giữa chữ và gạch
+                      child: Text(
+                        AppTexts.FORGOT_PASSWORD,
+                        style: const TextStyle(
+                          color: AppColors.WHITE,
+                          fontSize: 12,
+                          fontFamily: AppFonts.ROBOTO,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                    Container(
+                      height: 1, // độ dày gạch
+                      width:
+                          85, // độ dài, có thể đổi thành double.infinity nếu muốn full text
+                      color: AppColors.WHITE,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
           SizedBox(height: 16),
           SizedBox(
-            width: 320,
+            width: double.infinity,
             height: 40,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF0E4374),
+                backgroundColor: AppColors.PRIMARY,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
               onPressed: () {},
               child: Text(
-                'Đăng nhập',
+                AppTexts.LOGIN_BUTTON,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.WHITE,
                   fontSize: 16,
-                  fontFamily: 'Roboto',
+                  fontFamily: AppFonts.ROBOTO,
                   fontWeight: FontWeight.w700,
                   height: 1.30,
                 ),

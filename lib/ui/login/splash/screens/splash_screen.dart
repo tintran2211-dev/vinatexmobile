@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/splash_logo.dart';
+import 'package:vinatexmobile/core/constants/app_colors.dart';
+import 'package:vinatexmobile/core/constants/app_images.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -7,18 +9,18 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.TRANSPARENT,
       body: Stack(
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/background.png',
+              AppImages.BACKGROUND,
               fit: BoxFit.cover,
             ),
           ),
           Positioned.fill(
             child: Container(
-              color: Colors.black.withOpacity(0.6),
+              color: AppColors.BACKGROUND.withValues(alpha: 0.6),
             ),
           ),
           SafeArea(

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:vinatexmobile/core/constants/app_images.dart';
+import 'package:vinatexmobile/core/constants/app_fonts.dart';
+import 'package:vinatexmobile/core/constants/app_colors.dart';
+import 'package:vinatexmobile/core/constants/app_texts.dart';
 import '../widgets/login_logo.dart';
 import '../widgets/login_form.dart';
 
@@ -8,23 +12,30 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.BACKGROUND.withValues(alpha: 0.0),
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/background.png',
+              AppImages.BACKGROUND,
               fit: BoxFit.cover,
             ),
           ),
           Positioned.fill(
             child: Container(
-              color: Colors.black.withOpacity(0.6),
+              color: AppColors.BACKGROUND.withValues(alpha: 0.6),
             ),
           ),
           SafeArea(
-            child: Center(
+            child: Align(
+              alignment: Alignment.topCenter,
               child: SingleChildScrollView(
+                physics: ClampingScrollPhysics(),
+                padding: EdgeInsets.only(
+                  top: 32,
+                  bottom: 0,
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -32,17 +43,24 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(height: 24),
                     LoginForm(),
                     SizedBox(height: 24),
-                    Text(
-                      'Version 1.0.0.0.1',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w500,
-                        height: 1.50,
-                      ),
-                    ),
                   ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: MediaQuery.of(context).padding.bottom + 10,
+            child: Center(
+              child: Text(
+                AppTexts.VERSION,
+                style: TextStyle(
+                  color: AppColors.WHITE,
+                  fontSize: 12,
+                  fontFamily: AppFonts.ROBOTO,
+                  fontWeight: FontWeight.w500,
+                  height: 1.50,
                 ),
               ),
             ),
